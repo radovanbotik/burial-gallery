@@ -8,7 +8,7 @@ const SpotifyContext = ({ children }) => {
   const [token, setToken] = useState();
   const [albums, setAlbums] = useState();
   useEffect(() => {
-    console.log(client_id);
+    console.log(client_secret);
     const getToken = async () => {
       const options = {
         method: "POST",
