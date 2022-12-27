@@ -1,7 +1,5 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
-const client_id = import.meta.env.VITE_CLIENT_ID;
-const client_secret = import.meta.env.VITE_CLIENT_SECRET;
 
 const dataContext = React.createContext();
 
@@ -10,6 +8,8 @@ const SpotifyContext = ({ children }) => {
   const [albums, setAlbums] = useState();
   useEffect(() => {
     const getToken = async () => {
+      const client_id = import.meta.env.VITE_CLIENT_ID;
+      const client_secret = import.meta.env.VITE_CLIENT_SECRET;
       const options = {
         method: "POST",
         headers: {
