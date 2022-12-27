@@ -19,12 +19,10 @@ const SpotifyContext = ({ children }) => {
         // body: "grant_type=client_credentials",
         body: "grant_type=client_credentials",
       };
-      console.log(options);
       const resp = await fetch(
         "https://accounts.spotify.com/api/token",
         options
       );
-      console.log(resp);
       const data = await resp.json();
       setToken(data.access_token);
       return data.access_token;

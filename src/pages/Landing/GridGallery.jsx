@@ -4,6 +4,7 @@ import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const GridGallery = () => {
   const { albums } = useSpotifyContext();
+  console.log(albums);
   return (
     <Wrapper>
       {albums &&
