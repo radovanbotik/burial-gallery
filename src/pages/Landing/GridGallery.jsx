@@ -4,12 +4,10 @@ import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const GridGallery = () => {
   const { albums } = useSpotifyContext();
-  console.log(albums && albums.items);
   return (
     <Wrapper>
       {albums &&
         albums.items.map((item, index) => {
-          // console.log(item.images[0].url);
           return (
             <div
               className="card"
