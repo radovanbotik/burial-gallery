@@ -27,14 +27,16 @@ const SpotifyContext = ({ children }) => {
       setToken(data.access_token);
       return data.access_token;
     };
-    const tokendata = getToken();
     const getArtist = async () => {
+      const tokendata = await getToken();
+
       const options = {
         method: "GET",
         headers: {
           Authorization: "Bearer " + tokendata,
         },
       };
+      console.log(options);
       const resp = await fetch(
         "https://api.spotify.com/v1/artists/0uCCBpmg6MrPb1KY2msceF/albums?include_groups=single&market=SK",
         options
