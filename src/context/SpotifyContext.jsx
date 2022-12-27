@@ -24,12 +24,12 @@ const SpotifyContext = ({ children }) => {
         options
       );
       const data = await resp.json();
+      console.log(data);
       setToken(data.access_token);
       return data.access_token;
     };
     const getArtist = async () => {
       const tokendata = await getToken();
-      console.log(tokendata);
       const options = {
         method: "GET",
         headers: {
