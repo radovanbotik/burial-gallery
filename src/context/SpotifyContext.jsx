@@ -22,29 +22,44 @@ const SpotifyContext = ({ children }) => {
         "https://accounts.spotify.com/api/token",
         options
       );
-      const data = await resp.json();
-      setToken(data.access_token);
+      const tokendata = await resp.json();
+      setToken(tokendata.access_token);
+      const getArtist = async () => {
+        const options = {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + tokendata,
+          },
+        };
+        const resp = await fetch(
+          "https://api.spotify.com/v1/artists/0uCCBpmg6MrPb1KY2msceF/albums?include_groups=single&market=SK",
+          options
+        );
+        const data = await resp.json();
+        setAlbums(data);
+      };
+      getArtist();
     };
     getToken();
   }, []);
 
-  useEffect(() => {
-    const getArtist = async () => {
-      const options = {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      const resp = await fetch(
-        "https://api.spotify.com/v1/artists/0uCCBpmg6MrPb1KY2msceF/albums?include_groups=single&market=SK",
-        options
-      );
-      const data = await resp.json();
-      setAlbums(data);
-    };
-    getArtist();
-  }, [token]);
+  // useEffect(() => {
+  //   const getArtist = async () => {
+  //     const options = {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: "Bearer " + token,
+  //       },
+  //     };
+  //     const resp = await fetch(
+  //       "https://api.spotify.com/v1/artists/0uCCBpmg6MrPb1KY2msceF/albums?include_groups=single&market=SK",
+  //       options
+  //     );
+  //     const data = await resp.json();
+  //     setAlbums(data);
+  //   };
+  //   getArtist();
+  // }, [token]);
   return (
     <dataContext.Provider value={{ albums }}>{children}</dataContext.Provider>
   );
