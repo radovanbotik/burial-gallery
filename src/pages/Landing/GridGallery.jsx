@@ -3,20 +3,25 @@ import styled from "styled-components";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const GridGallery = () => {
-  const { albums } = useSpotifyContext();
+  const { albums, handleSelection } = useSpotifyContext();
   return (
     <Wrapper>
       {albums &&
         albums.items.map((item, index) => {
+          const coverArt = item.images[0].url;
           return (
             <div
               className="card"
               key={item.id}
               style={{ backgroundImage: `url(${item.images[0].url})` }}
+              onClick={e =>
+                handleSelection({ url: item.href, coverArt: coverArt })
+              }
             >
               <div className="overlay">
                 <h2>{item.name}</h2>
                 <h2>{item.release_date}</h2>
+                {/* <a href={item.external_urls.spotify}>view more</a> */}
               </div>
             </div>
           );
@@ -61,7 +66,7 @@ const Wrapper = styled.div`
       color: var(--white-main);
       display: grid;
       place-content: center;
-      gap: var(--vspace-3);
+      /* gap: var(--vspace-3); */
       clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
       transition: clip-path 500ms ease-in-out;
     }

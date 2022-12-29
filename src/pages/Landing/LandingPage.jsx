@@ -5,8 +5,10 @@ import styled from "styled-components";
 import LocomotiveScroll from "locomotive-scroll";
 import hyperdublogo from "../../assets/logos/hyperdub-logo.jpg";
 import untruefront from "../../assets/images/untruefront.webp";
+import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const LandingPage = () => {
+  const { coverArt } = useSpotifyContext();
   useLayoutEffect(() => {
     const scroll = new LocomotiveScroll({
       el: document.querySelector("[data-scroll-container]"),
@@ -15,17 +17,24 @@ export const LandingPage = () => {
     });
   }, []);
 
+  const styles = {
+    backgroundImage: coverArt ? `url(${coverArt})` : `url(${untruefront})`,
+  };
   return (
     <Page data-scroll-container>
       <div className="control">
         <div className="leftbox" data-scroll-section>
           {/* <Button text="view more" /> */}
+
           <div
             className="image-control"
             data-scroll
             data-scroll-speed="-4"
             data-scroll-position="left"
-          ></div>
+            style={styles}
+          >
+            {/* <h1>Burial untrue</h1> */}
+          </div>
         </div>
         <div className="rightbox" data-scroll-section>
           <GridGallery />
@@ -60,12 +69,31 @@ const Page = styled.section`
         height: inherit;
         height: 100%;
         width: 100%;
-        background-image: url(${untruefront});
-        /* background-size: cover; */
         background-position: center;
         background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
-        /* background-attachment: fixed; */
+        display: grid;
+        justify-content: center;
+        h1 {
+          color: #7bff00;
+          /* mix-blend-mode: multiply; */
+          /* mix-blend-mode: screen; */
+          /* mix-blend-mode: overlay; */
+          /* mix-blend-mode: darken; */
+          /* mix-blend-mode: lighten; */
+          /* mix-blend-mode: color-dodge; */
+          /* mix-blend-mode: color-burn; */
+          /* mix-blend-mode: hard-light; */
+          /* mix-blend-mode: soft-light; */
+          /* mix-blend-mode: difference; */
+          /* mix-blend-mode: exclusion; */
+          /* mix-blend-mode: hue; */
+          /* mix-blend-mode: saturation; */
+          /* mix-blend-mode: color; */
+          mix-blend-mode: luminosity;
+          z-index: 2;
+        }
       }
     }
     .rightbox {

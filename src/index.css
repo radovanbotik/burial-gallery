@@ -89,16 +89,16 @@ h1 {
   /* margin: var(--vspace-1) 0 var(--vspace-1) 0; */
   line-height: calc(3.2917 / var(--space) * var(--vspace));
   font-family: var(--ibm-plex);
-  font-family: var(--agency);
   font-family: var(--futura);
+  font-family: var(--agency);
 
   font-weight: 400;
 }
 
 .h1-bold {
   font-family: var(--outfit);
-  font-family: var(--agency);
   font-family: var(--futura);
+  font-family: var(--agency);
 
   font-weight: 500;
 }
