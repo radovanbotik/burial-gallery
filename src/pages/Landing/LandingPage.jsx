@@ -38,19 +38,22 @@ export const LandingPage = () => {
             </div>
 
             {tracks && (
-              <div className="tracks">
-                <h2>{name}</h2>
-                <h1>tracklist:</h1>
-                <ul className="tracklist">
-                  {tracks.map(track => {
-                    return (
-                      <li key={track.id}>
-                        <h6>{track.name}</h6>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+              <>
+                <div className="tracks">
+                  <h2>{name}</h2>
+                  <h1>tracklist:</h1>
+                  <ul className="tracklist">
+                    {tracks.map(track => {
+                      return (
+                        <li key={track.id}>
+                          <h6>{track.name} |</h6>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+                <div className="player"></div>
+              </>
             )}
           </div>
         </div>
@@ -82,12 +85,14 @@ const Page = styled.section`
       justify-content: flex-start; */
       /* float: left; */
       .card {
+        height: 100%;
         display: grid;
         /* grid-template-columns: minmax(100px, 400px) max-content; */
+        grid-template-rows: minmax(200px, 300px) min-content auto;
         gap: var(--vspace-2);
         /* grid-template-rows: minmax(100px, 400px) auto; */
         .image-control {
-          max-height: 400px;
+          /* max-height: 300px; */
           /* max-width: 300px; */
           /* aspect-ratio: 16/9; */
           img {
@@ -107,13 +112,21 @@ const Page = styled.section`
             gap: 1ex;
             /* list-style: unset; */
             /* list-style: circle; */
-            list-style-position: inside;
-
+            /* list-style-position: inside; */
+            li {
+              /* display: inline-block; */
+              /* border-right: 1px solid black;
+              padding-right: 1ex; */
+            }
             /* li::marker {
               content: url("../../assets/logos/hyperdub-logo.jpg");
               font-size: large;
             } */
           }
+        }
+        .player {
+          background-color: black;
+          width: 100%;
         }
       }
     }
