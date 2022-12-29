@@ -3,7 +3,7 @@ import { Button } from "../../components";
 import { GridGallery } from "./GridGallery";
 import styled from "styled-components";
 import LocomotiveScroll from "locomotive-scroll";
-import hyperdublogo from "../../assets/logos/hyperdub-logo.jpg";
+import burialtyped from "../../assets/images/burial-typed.svg";
 import untruefront from "../../assets/images/untruefront.webp";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
@@ -22,9 +22,6 @@ export const LandingPage = () => {
     });
   }, []);
 
-  const styles = {
-    backgroundImage: coverArt ? `url(${coverArt})` : `url(${untruefront})`,
-  };
   return (
     <Page data-scroll-container>
       <div className="control">
@@ -36,7 +33,7 @@ export const LandingPage = () => {
             data-scroll-speed="-4"
             data-scroll-position="left"
           >
-            <div className="image-control" style={styles}>
+            <div className="image-control">
               <img src={coverArt} alt="" />
             </div>
 
@@ -99,9 +96,23 @@ const Page = styled.section`
           }
         }
         .tracks {
+          h2 {
+            margin-bottom: 16px;
+          }
+          h1 {
+            margin-bottom: 16px;
+          }
           .tracklist {
             display: flex;
             gap: 1ex;
+            /* list-style: unset; */
+            /* list-style: circle; */
+            list-style-position: inside;
+
+            /* li::marker {
+              content: url("../../assets/logos/hyperdub-logo.jpg");
+              font-size: large;
+            } */
           }
         }
       }

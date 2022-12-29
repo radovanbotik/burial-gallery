@@ -182,8 +182,8 @@ h5 {
 .subheading4,
 h6 {
   font-size: 1em;
-  font-family: var(--ibm-plex);
   font-family: var(--agency);
+  font-family: var(--ibm-plex);
   font-family: var(--futura);
 
   font-weight: 400;
