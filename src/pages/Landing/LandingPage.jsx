@@ -8,7 +8,12 @@ import untruefront from "../../assets/images/untruefront.webp";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const LandingPage = () => {
-  const { coverArt } = useSpotifyContext();
+  const { clicked } = useSpotifyContext();
+  const { name, release_date, total_tracks, type, artists, images, tracks } =
+    clicked;
+  const coverArt = images ? images[0].url : untruefront;
+  console.log(tracks);
+
   useLayoutEffect(() => {
     const scroll = new LocomotiveScroll({
       el: document.querySelector("[data-scroll-container]"),
@@ -25,15 +30,31 @@ export const LandingPage = () => {
       <div className="control">
         <div className="leftbox" data-scroll-section>
           {/* <Button text="view more" /> */}
-
           <div
-            className="image-control"
+            className="card"
             data-scroll
             data-scroll-speed="-4"
             data-scroll-position="left"
-            style={styles}
           >
-            {/* <h1>Burial untrue</h1> */}
+            <div className="image-control" style={styles}>
+              <img src={coverArt} alt="" />
+            </div>
+
+            {tracks && (
+              <div className="tracks">
+                <h2>{name}</h2>
+                <h1>tracklist:</h1>
+                <ul className="tracklist">
+                  {tracks.map(track => {
+                    return (
+                      <li key={track.id}>
+                        <h6>{track.name}</h6>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
         <div className="rightbox" data-scroll-section>
@@ -59,40 +80,29 @@ const Page = styled.section`
       height: inherit;
       height: 100%;
       position: relative;
-      display: grid;
+      /* display: grid;
       align-items: flex-start;
-      justify-content: flex-start;
+      justify-content: flex-start; */
       /* float: left; */
-
-      .image-control {
-        position: absolute;
-        height: inherit;
-        height: 100%;
-        width: 100%;
-        background-position: center;
-        background-size: cover;
-        background-size: contain;
-        background-repeat: no-repeat;
+      .card {
         display: grid;
-        justify-content: center;
-        h1 {
-          color: #7bff00;
-          /* mix-blend-mode: multiply; */
-          /* mix-blend-mode: screen; */
-          /* mix-blend-mode: overlay; */
-          /* mix-blend-mode: darken; */
-          /* mix-blend-mode: lighten; */
-          /* mix-blend-mode: color-dodge; */
-          /* mix-blend-mode: color-burn; */
-          /* mix-blend-mode: hard-light; */
-          /* mix-blend-mode: soft-light; */
-          /* mix-blend-mode: difference; */
-          /* mix-blend-mode: exclusion; */
-          /* mix-blend-mode: hue; */
-          /* mix-blend-mode: saturation; */
-          /* mix-blend-mode: color; */
-          mix-blend-mode: luminosity;
-          z-index: 2;
+        /* grid-template-columns: minmax(100px, 400px) max-content; */
+        gap: var(--vspace-2);
+        /* grid-template-rows: minmax(100px, 400px) auto; */
+        .image-control {
+          max-height: 400px;
+          /* max-width: 300px; */
+          /* aspect-ratio: 16/9; */
+          img {
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+        .tracks {
+          .tracklist {
+            display: flex;
+            gap: 1ex;
+          }
         }
       }
     }

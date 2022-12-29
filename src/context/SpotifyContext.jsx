@@ -10,7 +10,7 @@ const SpotifyContext = ({ children }) => {
   const [token, setToken] = useState("");
   const [albums, setAlbums] = useState("");
   const [albumData, setAlbumData] = useState("");
-  const [coverArt, setCoverArt] = useState("");
+  const [clicked, setClicked] = useState({});
 
   const getAlbum = async href => {
     const resp = await axios(`${href}/tracks`, {
@@ -23,15 +23,15 @@ const SpotifyContext = ({ children }) => {
     // previewURL.play();
     // previewURL.pause();
     const data = resp.data.items.map(item => {
-      // console.log(item);
       return { name: item.name, audio: item.preview_url };
     });
+
     setAlbumData(resp.data.items);
+    return resp.data.items;
   };
 
-  const handleSelection = ({ url, coverArt }) => {
-    getAlbum(url);
-    setCoverArt(coverArt);
+  const handleSelection = item => {
+    getAlbum(item.href).then(tracks => setClicked({ ...item, tracks: tracks }));
   };
 
   //Get Token Fetch Artist
@@ -70,7 +70,7 @@ const SpotifyContext = ({ children }) => {
   }, []);
 
   return (
-    <dataContext.Provider value={{ albums, handleSelection, coverArt }}>
+    <dataContext.Provider value={{ albums, handleSelection, clicked }}>
       {children}
     </dataContext.Provider>
   );

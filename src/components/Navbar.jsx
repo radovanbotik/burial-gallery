@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   .player {
     height: 100%;
     width: 100%;
-    background-color: gold;
+    /* background-color: gold; */
   }
   /* background-color: black; */
 `;

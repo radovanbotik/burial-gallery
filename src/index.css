@@ -239,7 +239,7 @@ img {
   height: 100%;
   display: block;
   object-fit: cover;
-  filter: grayscale(100%);
+  /* filter: grayscale(100%); */
 }
 
 ul {
