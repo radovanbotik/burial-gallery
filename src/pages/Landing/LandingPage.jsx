@@ -49,6 +49,7 @@ export const LandingPage = () => {
           >
             <div className="image-control">
               <img src={coverArt} alt="" />
+              {!tracks && <Button text="bandcamp" />}
             </div>
 
             {tracks && (
@@ -136,6 +137,13 @@ const Page = styled.section`
         gap: var(--vspace-2);
         /* grid-template-rows: minmax(100px, 400px) auto; */
         .image-control {
+          display: flex;
+          flex-direction: column;
+          gap: var(--vspace-2);
+
+          align-items: center;
+          /* display: grid;
+          place-items: center; */
           /* max-height: 300px; */
           /* max-width: 300px; */
           /* aspect-ratio: 16/9; */
@@ -147,6 +155,8 @@ const Page = styled.section`
           }
         }
         .tracks {
+          /* display: flex;
+          flex-direction: column; */
           h2 {
             margin-bottom: 16px;
           }

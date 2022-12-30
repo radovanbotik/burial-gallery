@@ -25,6 +25,7 @@ const Wrapper = styled.div`
   height: 60px;
   padding: 10px 20px 0;
   display: flex;
+  align-items: center;
   .logo {
     display: flex;
     flex-wrap: nowrap;
@@ -41,6 +42,8 @@ const Wrapper = styled.div`
   .player {
     height: 100%;
     width: 100%;
+    display: grid;
+    place-content: end;
     /* background-color: gold; */
   }
   /* background-color: black; */
