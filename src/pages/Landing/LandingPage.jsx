@@ -19,7 +19,8 @@ export const LandingPage = () => {
     const selectedTrack = playerContent.find(
       track => track.id === e.currentTarget.dataset.id
     );
-
+    // selectedTrack.currentTime = 0;
+    console.log(isPlaying);
     if (!isPlaying) {
       selectedTrack.audio.play();
     } else {
