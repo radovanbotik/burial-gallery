@@ -12,6 +12,7 @@ const SpotifyContext = ({ children }) => {
   const [albumData, setAlbumData] = useState("");
   const [clicked, setClicked] = useState({});
   const [audioSrc, setAudioSrc] = useState([]);
+  const [playerContent, setPlayerContent] = useState([]);
 
   const getAudio = tracks => {
     const audioSource = tracks.map(track => {
@@ -40,8 +41,15 @@ const SpotifyContext = ({ children }) => {
 
   const handleSelection = item => {
     getAlbum(item.href).then(tracks => {
-      // console.log(tracks);
       setClicked({ ...item, tracks: tracks });
+      setPlayerContent(
+        tracks.map(track => {
+          return {
+            id: track.id,
+            audio: new Audio(track.preview_url),
+          };
+        })
+      );
       getAudio(tracks);
     });
   };
@@ -83,7 +91,7 @@ const SpotifyContext = ({ children }) => {
 
   return (
     <dataContext.Provider
-      value={{ albums, handleSelection, clicked, audioSrc }}
+      value={{ albums, handleSelection, clicked, audioSrc, playerContent }}
     >
       {children}
     </dataContext.Provider>

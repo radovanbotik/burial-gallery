@@ -8,17 +8,24 @@ import untruefront from "../../assets/images/untruefront.webp";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const LandingPage = () => {
-  const { clicked, audioSrc } = useSpotifyContext();
+  const { clicked, audioSrc, playerContent } = useSpotifyContext();
   const { name, release_date, total_tracks, type, artists, images, tracks } =
     clicked;
   const coverArt = images ? images[0].url : untruefront;
-  const [currentTrack, setCurrentTrack] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const [player, setPlayer] = useState(tracks);
-  console.log(tracks);
+  const [currentTrack, setCurrentTrack] = useState("");
+
   const setTrack = e => {
-    console.log(e.currentTarget.dataset.src);
-    // setCurrentTrack(new Audio(e.currentTarget.dataset.src));
+    setIsPlaying(prev => !prev);
+    setCurrentTrack(e.currentTarget.dataset.id);
+    const selectedTrack = playerContent.find(
+      track => track.id === e.currentTarget.dataset.id
+    );
+    if (!isPlaying) {
+      selectedTrack.audio.play();
+    } else {
+      selectedTrack.audio.pause();
+    }
   };
 
   useLayoutEffect(() => {
@@ -66,6 +73,7 @@ export const LandingPage = () => {
                         className="audio-example"
                         key={track.id}
                         data-src={track.source}
+                        data-id={track.id}
                         // onClick={setTrack}
                         onClick={
                           // e =>
