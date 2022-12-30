@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Button } from "../../components";
 import { GridGallery } from "./GridGallery";
 import styled from "styled-components";
@@ -19,7 +19,6 @@ export const LandingPage = () => {
     const selectedTrack = playerContent.find(
       track => track.id === e.currentTarget.dataset.id
     );
-    // selectedTrack.currentTime = 0;
     console.log(isPlaying);
     if (!isPlaying) {
       selectedTrack.audio.play();
@@ -39,13 +38,19 @@ export const LandingPage = () => {
   return (
     <Page data-scroll-container>
       <div className="control">
-        <div className="leftbox" data-scroll-section>
+        <div
+          className="leftbox"
+          data-scroll-section
+          data-scroll
+          data-scroll-speed="-4"
+          data-scroll-position="left"
+        >
           {/* <Button text="view more" /> */}
           <div
             className="card"
-            data-scroll
-            data-scroll-speed="-4"
-            data-scroll-position="left"
+            // data-scroll
+            // data-scroll-speed="-4"
+            // data-scroll-position="left"
           >
             <div className="image-control">
               <img src={coverArt} alt="" />
@@ -69,7 +74,12 @@ export const LandingPage = () => {
                     })}
                   </ul>
                 </div>
-                <div className="player">
+                <div
+                  className="player"
+                  // onClick={e => {
+                  //   console.log(e.target.parentElement);
+                  // }}
+                >
                   {playerContent.map(track => {
                     return (
                       <div
@@ -117,7 +127,6 @@ const Page = styled.section`
   .control {
     height: inherit;
     height: 100%;
-    display: flex;
     position: relative;
     gap: var(--vspace-1);
     .leftbox {
@@ -135,7 +144,7 @@ const Page = styled.section`
         height: 100%;
         display: grid;
         /* grid-template-columns: minmax(100px, 400px) max-content; */
-        grid-template-rows: minmax(200px, 300px) min-content max-content;
+        grid-template-rows: minmax(200px, 300px) min-content min-content;
         gap: var(--vspace-2);
         /* grid-template-rows: minmax(100px, 400px) auto; */
         .image-control {
@@ -183,7 +192,11 @@ const Page = styled.section`
           }
         }
         .player {
-          background-color: black;
+          /* display: flex;
+          flex-direction: column; */
+          /* display: grid; */
+          /* grid-template-columns: 1fr 1fr; */
+          background-color: var(--black-main);
           width: 100%;
           color: var(--white-main);
           /* display: grid; */
@@ -193,12 +206,14 @@ const Page = styled.section`
           padding: var(--vspace-3);
           .audio-example {
             display: flex;
+            /* gap: 1ex; */
             align-items: center;
             cursor: pointer;
           }
           .icon {
-            /* font-size: var(--size-700); */
-            font-size: inherit;
+            font-size: var(--size-500);
+            padding-right: 1ex;
+            /* font-size: inherit; */
           }
         }
       }

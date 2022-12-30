@@ -44,10 +44,10 @@
   /* --black-main:#1a1e1f;
   --white-main:#d4d9d6; */
 
-  /* --black-main: #0b1013;
-  --white-main: #ffffff; */
-
-  /* --black-main: #231c18;
+  --black-main: #0b1013;
+  --white-main: #ffffff;
+  /* 
+  --black-main: #231c18;
   --white-main: #ffffff; */
 
   /* --black-main: #322f30;
@@ -55,8 +55,8 @@
 
   /* --black-main: #3c2b3f;
   --white-main: #ffffff; */
-  /* 
-  --black-main: #2e2414;
+
+  /* --black-main: #2e2414;
   --white-main: #ffffff; */
 
   --ibm-plex: "IBM Plex Serif", serif;
