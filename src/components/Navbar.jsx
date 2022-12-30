@@ -25,9 +25,12 @@ export const Navbar = () => {
 const Wrapper = styled.div`
   height: 60px;
   padding: 10px 20px 0;
+
   display: flex;
   align-items: center;
   .logo {
+    padding: var(--vspace-1);
+
     display: flex;
     flex-wrap: nowrap;
     gap: 1ex;

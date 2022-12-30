@@ -14,13 +14,6 @@ const SpotifyContext = ({ children }) => {
   const [audioSrc, setAudioSrc] = useState([]);
   const [playerContent, setPlayerContent] = useState([]);
 
-  const getAudio = tracks => {
-    const audioSource = tracks.map(track => {
-      return { name: track.name, source: track.preview_url, id: track.id };
-    });
-    setAudioSrc(audioSource);
-  };
-
   const getAlbum = async href => {
     const resp = await axios(`${href}/tracks`, {
       headers: {
@@ -28,9 +21,7 @@ const SpotifyContext = ({ children }) => {
       },
       method: "GET",
     });
-    // let previewURL = new Audio(resp.data.items[0].preview_url);
-    // previewURL.play();
-    // previewURL.pause();
+
     const data = resp.data.items.map(item => {
       return { name: item.name, audio: item.preview_url };
     });
@@ -47,10 +38,10 @@ const SpotifyContext = ({ children }) => {
           return {
             id: track.id,
             audio: new Audio(track.preview_url),
+            name: track.name,
           };
         })
       );
-      getAudio(tracks);
     });
   };
 
@@ -91,7 +82,7 @@ const SpotifyContext = ({ children }) => {
 
   return (
     <dataContext.Provider
-      value={{ albums, handleSelection, clicked, audioSrc, playerContent }}
+      value={{ albums, handleSelection, clicked, playerContent }}
     >
       {children}
     </dataContext.Provider>

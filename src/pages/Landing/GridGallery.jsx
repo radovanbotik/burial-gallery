@@ -33,6 +33,8 @@ const Wrapper = styled.div`
   background-color: white;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--vspace-3);
+  padding: var(--vspace-1);
+
   .card {
     position: relative;
     grid-column: span 2;

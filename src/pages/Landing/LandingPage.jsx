@@ -8,19 +8,18 @@ import untruefront from "../../assets/images/untruefront.webp";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const LandingPage = () => {
-  const { clicked, audioSrc, playerContent } = useSpotifyContext();
+  const { clicked, playerContent } = useSpotifyContext();
   const { name, release_date, total_tracks, type, artists, images, tracks } =
     clicked;
   const coverArt = images ? images[0].url : hyperdub;
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState("");
 
   const setTrack = e => {
     setIsPlaying(prev => !prev);
-    setCurrentTrack(e.currentTarget.dataset.id);
     const selectedTrack = playerContent.find(
       track => track.id === e.currentTarget.dataset.id
     );
+
     if (!isPlaying) {
       selectedTrack.audio.play();
     } else {
@@ -70,7 +69,7 @@ export const LandingPage = () => {
                   </ul>
                 </div>
                 <div className="player">
-                  {audioSrc.map(track => {
+                  {playerContent.map(track => {
                     return (
                       <div
                         className="audio-example"
