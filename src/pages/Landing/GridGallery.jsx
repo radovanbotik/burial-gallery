@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const GridGallery = () => {
-  const { albums } = useSpotifyContext();
+  const { albums, handleSelection } = useSpotifyContext();
   return (
     <Wrapper>
       {albums &&
@@ -13,6 +13,7 @@ export const GridGallery = () => {
               className="card"
               key={item.id}
               style={{ backgroundImage: `url(${item.images[0].url})` }}
+              onClick={e => handleSelection(item)}
             >
               <div className="overlay">
                 <h2>{item.name}</h2>
@@ -61,7 +62,7 @@ const Wrapper = styled.div`
       color: var(--white-main);
       display: grid;
       place-content: center;
-      gap: var(--vspace-3);
+      /* gap: var(--vspace-3); */
       clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
       transition: clip-path 500ms ease-in-out;
     }
