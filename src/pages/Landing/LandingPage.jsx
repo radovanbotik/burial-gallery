@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Button } from "../../components";
 import { GridGallery } from "./GridGallery";
 import styled from "styled-components";
@@ -8,11 +8,17 @@ import untruefront from "../../assets/images/untruefront.webp";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const LandingPage = () => {
-  const { clicked } = useSpotifyContext();
+  const { clicked, audioSrc } = useSpotifyContext();
   const { name, release_date, total_tracks, type, artists, images, tracks } =
     clicked;
   const coverArt = images ? images[0].url : untruefront;
-  console.log(tracks);
+
+  const playTrack = e => {
+    console.log(e.currentTarget.dataset.src);
+    const preview = new Audio(e.currentTarget.dataset.src);
+    preview.pause();
+    preview.play();
+  };
 
   useLayoutEffect(() => {
     const scroll = new LocomotiveScroll({
@@ -52,7 +58,26 @@ export const LandingPage = () => {
                     })}
                   </ul>
                 </div>
-                <div className="player"></div>
+                <div className="player">
+                  {audioSrc.map(track => {
+                    return (
+                      <div
+                        className="audio-example"
+                        key={track.id}
+                        data-src={track.source}
+                        onClick={playTrack}
+                      >
+                        <span className="material-symbols-outlined icon">
+                          play_arrow
+                        </span>
+                        <h6>{track.name}</h6>
+                      </div>
+                    );
+                  })}
+                  {/* <span className="material-symbols-outlined icon">
+                    play_arrow
+                  </span> */}
+                </div>
               </>
             )}
           </div>
@@ -74,12 +99,14 @@ const Page = styled.section`
     height: 100%;
     display: flex;
     position: relative;
+    gap: var(--vspace-1);
     .leftbox {
       flex: none;
       width: 50vw;
       height: inherit;
       height: 100%;
       position: relative;
+      padding: var(--vspace-1);
       /* display: grid;
       align-items: flex-start;
       justify-content: flex-start; */
@@ -88,7 +115,7 @@ const Page = styled.section`
         height: 100%;
         display: grid;
         /* grid-template-columns: minmax(100px, 400px) max-content; */
-        grid-template-rows: minmax(200px, 300px) min-content auto;
+        grid-template-rows: minmax(200px, 300px) min-content max-content;
         gap: var(--vspace-2);
         /* grid-template-rows: minmax(100px, 400px) auto; */
         .image-control {
@@ -98,6 +125,8 @@ const Page = styled.section`
           img {
             object-fit: cover;
             object-position: center;
+            object-fit: contain;
+            object-position: left;
           }
         }
         .tracks {
@@ -127,6 +156,21 @@ const Page = styled.section`
         .player {
           background-color: black;
           width: 100%;
+          color: var(--white-main);
+          /* display: grid; */
+          /* grid-template-columns: min-content min-content; */
+          /* justify-content: space-between; */
+          gap: var(--vspace-3);
+          padding: var(--vspace-3);
+          .audio-example {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+          }
+          .icon {
+            /* font-size: var(--size-700); */
+            font-size: inherit;
+          }
         }
       }
     }
