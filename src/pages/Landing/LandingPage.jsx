@@ -49,7 +49,9 @@ export const LandingPage = () => {
           >
             <div className="image-control">
               <img src={coverArt} alt="" />
-              {!tracks && <Button text="bandcamp" />}
+              {!tracks && (
+                <Button text="bandcamp" path="https://burial.bandcamp.com/" />
+              )}
             </div>
 
             {tracks && (

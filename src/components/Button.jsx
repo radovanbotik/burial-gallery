@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { BurialLogo } from "../assets/logos/BurialLogo";
 
-export const Button = ({ text }) => {
+export const Button = ({ text, path }) => {
   return (
-    <Wrapper className="button">
+    <Wrapper href={path} className="button" target="_blank">
       <div className="svg-control">
         <BurialLogo />
       </div>
@@ -13,18 +14,13 @@ export const Button = ({ text }) => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.a`
   display: inline-block;
-  /* width: calc(var(--vspace-0) * 2); */
-  /* height: 60px; */
-  /* padding: 0 var(--vspace-2); */
-  /* width: 100px; */
   border-left: 1px solid var(--black-main);
   transition: border-left 1500ms;
   position: relative;
   display: flex;
   align-items: center;
-  /* border-radius: 4px; */
   text-transform: uppercase;
   font-family: var(--agency);
   z-index: 10;

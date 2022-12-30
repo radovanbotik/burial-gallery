@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { BurialLogo } from "../assets/logos/BurialLogo";
 import { BurialText } from "../assets/logos/BurialText";
 
@@ -9,12 +10,12 @@ export const Navbar = () => {
   return (
     <Wrapper>
       {/* <Button text={"burial"} /> */}
-      <div className="logo">
+      <Link to="/" className="logo">
         <div className="logo-graphic">
           <BurialLogo />
         </div>
         <h2>burial</h2>
-      </div>
+      </Link>
       <div className="player"></div>
       {/* <BurialText /> */}
     </Wrapper>
