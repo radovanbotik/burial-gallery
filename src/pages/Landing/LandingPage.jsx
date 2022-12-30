@@ -12,14 +12,14 @@ export const LandingPage = () => {
   const { name, release_date, total_tracks, type, artists, images, tracks } =
     clicked;
   const coverArt = images ? images[0].url : untruefront;
+  const [currentTrack, setCurrentTrack] = useState("");
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const playTrack = e => {
-    console.log(e.currentTarget.dataset.src);
-    const preview = new Audio(e.currentTarget.dataset.src);
-    preview.pause();
-    preview.play();
+  const setTrack = async e => {
+    setCurrentTrack(new Audio(e.currentTarget.dataset.src));
   };
 
+  console.log(currentTrack);
   useLayoutEffect(() => {
     const scroll = new LocomotiveScroll({
       el: document.querySelector("[data-scroll-container]"),
@@ -65,12 +65,20 @@ export const LandingPage = () => {
                         className="audio-example"
                         key={track.id}
                         data-src={track.source}
-                        onClick={playTrack}
+                        // onClick={setTrack}
+                        onClick={
+                          // e =>
+                          // setCurrentTrack(
+                          //   new Audio(e.currentTarget.dataset.src)
+                          // )
+                          setTrack
+                        }
                       >
                         <span className="material-symbols-outlined icon">
                           play_arrow
                         </span>
                         <h6>{track.name}</h6>
+                        {/* <Button text={"play"} /> */}
                       </div>
                     );
                   })}
