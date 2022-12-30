@@ -40,6 +40,7 @@ const SpotifyContext = ({ children }) => {
 
   const handleSelection = item => {
     getAlbum(item.href).then(tracks => {
+      // console.log(tracks);
       setClicked({ ...item, tracks: tracks });
       getAudio(tracks);
     });

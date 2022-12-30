@@ -14,12 +14,13 @@ export const LandingPage = () => {
   const coverArt = images ? images[0].url : untruefront;
   const [currentTrack, setCurrentTrack] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-
-  const setTrack = async e => {
-    setCurrentTrack(new Audio(e.currentTarget.dataset.src));
+  const [player, setPlayer] = useState(tracks);
+  console.log(tracks);
+  const setTrack = e => {
+    console.log(e.currentTarget.dataset.src);
+    // setCurrentTrack(new Audio(e.currentTarget.dataset.src));
   };
 
-  console.log(currentTrack);
   useLayoutEffect(() => {
     const scroll = new LocomotiveScroll({
       el: document.querySelector("[data-scroll-container]"),
@@ -133,8 +134,8 @@ const Page = styled.section`
           img {
             object-fit: cover;
             object-position: center;
-            object-fit: contain;
-            object-position: left;
+            /* object-fit: contain;
+            object-position: left; */
           }
         }
         .tracks {
