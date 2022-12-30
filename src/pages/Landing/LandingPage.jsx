@@ -3,7 +3,7 @@ import { Button } from "../../components";
 import { GridGallery } from "./GridGallery";
 import styled from "styled-components";
 import LocomotiveScroll from "locomotive-scroll";
-import burialtyped from "../../assets/images/burial-typed.svg";
+import hyperdub from "../../assets/logos/hyperdub-text.png";
 import untruefront from "../../assets/images/untruefront.webp";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
@@ -11,7 +11,7 @@ export const LandingPage = () => {
   const { clicked, audioSrc, playerContent } = useSpotifyContext();
   const { name, release_date, total_tracks, type, artists, images, tracks } =
     clicked;
-  const coverArt = images ? images[0].url : untruefront;
+  const coverArt = images ? images[0].url : hyperdub;
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState("");
 
