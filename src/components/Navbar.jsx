@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { BurialLogo } from "../assets/logos/BurialLogo";
 import { BurialText } from "../assets/logos/BurialText";
 
@@ -9,12 +10,12 @@ export const Navbar = () => {
   return (
     <Wrapper>
       {/* <Button text={"burial"} /> */}
-      <div className="logo">
+      <Link to="/" className="logo">
         <div className="logo-graphic">
           <BurialLogo />
         </div>
         <h2>burial</h2>
-      </div>
+      </Link>
       <div className="player"></div>
       {/* <BurialText /> */}
     </Wrapper>
@@ -24,8 +25,12 @@ export const Navbar = () => {
 const Wrapper = styled.div`
   height: 60px;
   padding: 10px 20px 0;
+
   display: flex;
+  align-items: center;
   .logo {
+    padding: var(--vspace-1);
+
     display: flex;
     flex-wrap: nowrap;
     gap: 1ex;
@@ -41,6 +46,8 @@ const Wrapper = styled.div`
   .player {
     height: 100%;
     width: 100%;
+    display: grid;
+    place-content: end;
     /* background-color: gold; */
   }
   /* background-color: black; */

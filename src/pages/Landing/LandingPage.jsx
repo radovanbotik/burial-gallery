@@ -1,25 +1,32 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Button } from "../../components";
 import { GridGallery } from "./GridGallery";
 import styled from "styled-components";
 import LocomotiveScroll from "locomotive-scroll";
-import burialtyped from "../../assets/images/burial-typed.svg";
+import hyperdub from "../../assets/logos/hyperdub-text.png";
 import untruefront from "../../assets/images/untruefront.webp";
 import { useSpotifyContext } from "../../context/SpotifyContext";
 
 export const LandingPage = () => {
-  const { clicked, audioSrc } = useSpotifyContext();
+  const { clicked, playerContent } = useSpotifyContext();
   const { name, release_date, total_tracks, type, artists, images, tracks } =
     clicked;
-  const coverArt = images ? images[0].url : untruefront;
-  const [currentTrack, setCurrentTrack] = useState("");
+  const coverArt = images ? images[0].url : hyperdub;
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const setTrack = async e => {
-    setCurrentTrack(new Audio(e.currentTarget.dataset.src));
+  const setTrack = e => {
+    setIsPlaying(prev => !prev);
+    const selectedTrack = playerContent.find(
+      track => track.id === e.currentTarget.dataset.id
+    );
+    console.log(isPlaying);
+    if (!isPlaying) {
+      selectedTrack.audio.play();
+    } else {
+      selectedTrack.audio.pause();
+    }
   };
 
-  console.log(currentTrack);
   useLayoutEffect(() => {
     const scroll = new LocomotiveScroll({
       el: document.querySelector("[data-scroll-container]"),
@@ -31,16 +38,25 @@ export const LandingPage = () => {
   return (
     <Page data-scroll-container>
       <div className="control">
-        <div className="leftbox" data-scroll-section>
+        <div
+          className="leftbox"
+          data-scroll-section
+          data-scroll
+          data-scroll-speed="-4"
+          data-scroll-position="left"
+        >
           {/* <Button text="view more" /> */}
           <div
             className="card"
-            data-scroll
-            data-scroll-speed="-4"
-            data-scroll-position="left"
+            // data-scroll
+            // data-scroll-speed="-4"
+            // data-scroll-position="left"
           >
             <div className="image-control">
               <img src={coverArt} alt="" />
+              {!tracks && (
+                <Button text="bandcamp" path="https://burial.bandcamp.com/" />
+              )}
             </div>
 
             {tracks && (
@@ -58,13 +74,19 @@ export const LandingPage = () => {
                     })}
                   </ul>
                 </div>
-                <div className="player">
-                  {audioSrc.map(track => {
+                <div
+                  className="player"
+                  // onClick={e => {
+                  //   console.log(e.target.parentElement);
+                  // }}
+                >
+                  {playerContent.map(track => {
                     return (
                       <div
                         className="audio-example"
                         key={track.id}
                         data-src={track.source}
+                        data-id={track.id}
                         // onClick={setTrack}
                         onClick={
                           // e =>
@@ -105,7 +127,6 @@ const Page = styled.section`
   .control {
     height: inherit;
     height: 100%;
-    display: flex;
     position: relative;
     gap: var(--vspace-1);
     .leftbox {
@@ -123,21 +144,30 @@ const Page = styled.section`
         height: 100%;
         display: grid;
         /* grid-template-columns: minmax(100px, 400px) max-content; */
-        grid-template-rows: minmax(200px, 300px) min-content max-content;
+        grid-template-rows: minmax(200px, 300px) min-content min-content;
         gap: var(--vspace-2);
         /* grid-template-rows: minmax(100px, 400px) auto; */
         .image-control {
+          display: flex;
+          flex-direction: column;
+          gap: var(--vspace-2);
+
+          align-items: center;
+          /* display: grid;
+          place-items: center; */
           /* max-height: 300px; */
           /* max-width: 300px; */
           /* aspect-ratio: 16/9; */
           img {
             object-fit: cover;
             object-position: center;
-            object-fit: contain;
-            object-position: left;
+            /* object-fit: contain;
+            object-position: left; */
           }
         }
         .tracks {
+          /* display: flex;
+          flex-direction: column; */
           h2 {
             margin-bottom: 16px;
           }
@@ -162,7 +192,11 @@ const Page = styled.section`
           }
         }
         .player {
-          background-color: black;
+          /* display: flex;
+          flex-direction: column; */
+          /* display: grid; */
+          /* grid-template-columns: 1fr 1fr; */
+          background-color: var(--black-main);
           width: 100%;
           color: var(--white-main);
           /* display: grid; */
@@ -172,12 +206,14 @@ const Page = styled.section`
           padding: var(--vspace-3);
           .audio-example {
             display: flex;
+            /* gap: 1ex; */
             align-items: center;
             cursor: pointer;
           }
           .icon {
-            /* font-size: var(--size-700); */
-            font-size: inherit;
+            font-size: var(--size-500);
+            padding-right: 1ex;
+            /* font-size: inherit; */
           }
         }
       }
